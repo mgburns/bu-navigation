@@ -1,0 +1,14 @@
+{
+  "name": "bu-navigation",
+  "version": "1.2.0",
+  "description": "Provides alternative navigation elements designed for blogs with large page counts.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bu-ist/bu-navigation.git"
+  },
+  "author": "Boston University (IS&T)",
+  "license": "GPLv2 or later",
+  "devDependencies": {
+    "grunt": "~0.4.2"
+  }
+}
