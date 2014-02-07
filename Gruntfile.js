@@ -61,12 +61,23 @@ module.exports = function(grunt) {
 				// Place the minified files as the same directory as the source
 				dest: 'js'
 			}
+		},
+
+		watch: {
+			options: {
+				livereload: true
+			},
+			scripts: {
+				files: ['js/*.dev.js', 'js/src/*.js'],
+				tasks: ['concat', 'uglify']
+			}
 		}
 	});
 
 	// Load tasks provided by the Grunt plugins installed via NPM
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task.  Concatenate scripts and minify them.
 	grunt.registerTask( 'default', ['concat', 'uglify'] );
