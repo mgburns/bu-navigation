@@ -12,78 +12,6 @@ var bu = bu || {};
 bu.plugins = bu.plugins || {};
 bu.plugins.navigation = {};
 
-(function ($) {
-	'use strict';
-
-	// Simple pub/sub pattern
-	bu.signals = (function () {
-		var api = {};
-
-		// Attach a callback function to respond for the given event
-		api.listenFor = function (event, callback) {
-			var listeners = this._listeners;
-			if (listeners[event] === undefined) {
-				listeners[event] = [];
-			}
-
-			listeners[event].push(callback);
-		};
-
-		// Broadcast a specific event, optionally providing context data
-		api.broadcast = function (event, data) {
-			var i, listeners = this._listeners;
-			if (listeners[event]) {
-				for (i = 0; i < listeners[event].length; i = i + 1) {
-					listeners[event][i].apply(this, data || []);
-				}
-			}
-		};
-
-		// Objects that wish to broadcast signals must register themselves first
-		return {
-			register: function (obj) {
-				obj._listeners = {};
-				$.extend(true, obj, api);
-			}
-		};
-
-	}());
-
-	// Simple filter mechanism, modeled after Plugins API
-	// @todo partially implemented
-	bu.hooks = (function () {
-		var filters = {};
-
-		return {
-			addFilter: function (name, func) {
-				if (filters[name] === undefined) {
-					filters[name] = [];
-				}
-
-				filters[name].push(func);
-				return this;
-
-			},
-			applyFilters: function (name, obj) {
-				if (filters[name] === undefined) {
-					return obj;
-				}
-
-				var args = Array.prototype.slice.apply(arguments),
-					extra = args.slice(1),
-					rslt = obj,
-					i;
-
-				for (i = 0; i < filters[name].length; i = i + 1) {
-					rslt = filters[name][i].apply(this, extra);
-				}
-
-				return rslt;
-			}
-		};
-	}());
-}(jQuery));
-
 // =============================================//
 // BU Navigation plugin settings & tree objects //
 // =============================================//
@@ -655,7 +583,7 @@ bu.plugins.navigation = {};
 
 			my.getRelAttrForPost = function(post, hasChildren) {
 				var rel;
-				
+
 				if (hasChildren) {
 					rel = 'section';
 				} else {
